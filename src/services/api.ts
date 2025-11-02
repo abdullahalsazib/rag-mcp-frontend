@@ -25,6 +25,8 @@ export interface ChatResponse {
 export interface MCPServer {
   name: string;
   url: string;
+  api_key?: string;
+  has_api_key?: boolean; // Indicates if API key exists (for display purposes)
 }
 
 export interface MCPServersResponse {

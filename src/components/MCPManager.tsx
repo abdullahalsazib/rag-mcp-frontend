@@ -5,7 +5,7 @@ import { apiClient, type MCPServer } from '../services/api';
 interface MCPManagerProps {
     isOpen: boolean;
     onClose: () => void;
-    onServerAdded: (serverName: string) => void;
+    onServerAdded: () => void;
 }
 
 export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServerAdded }) => {
@@ -13,6 +13,7 @@ export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServe
     const [loading, setLoading] = useState(false);
     const [name, setName] = useState('');
     const [url, setUrl] = useState('');
+    const [apiKey, setApiKey] = useState('');
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -43,11 +44,20 @@ export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServe
         }
 
         try {
-            await apiClient.addMCPServer({ name: name.trim(), url: url.trim() });
+            const serverData: MCPServer = {
+                name: name.trim(),
+                url: url.trim()
+            };
+            if (apiKey.trim()) {
+                serverData.api_key = apiKey.trim();
+            }
+
+            await apiClient.addMCPServer(serverData);
             setName('');
             setUrl('');
+            setApiKey('');
             await loadServers();
-            onServerAdded(name.trim());
+            onServerAdded();
         } catch (err: any) {
             setError(err.message || 'Failed to add server');
         }
@@ -114,6 +124,22 @@ export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServe
                                 />
                             </div>
 
+                            <div>
+                                <label className="block text-sm font-medium text-neutral-400 mb-2">
+                                    API Key / Auth Key <span className="text-neutral-500 text-xs">(Optional)</span>
+                                </label>
+                                <input
+                                    type="password"
+                                    value={apiKey}
+                                    onChange={(e) => setApiKey(e.target.value)}
+                                    placeholder="Enter API key if server requires authentication"
+                                    className="w-full px-4 py-2.5 border border-neutral-700 rounded-lg focus:outline-none focus:border-neutral-600 focus:ring-2 focus:ring-neutral-600 bg-neutral-800 text-neutral-200 placeholder-neutral-500"
+                                />
+                                <p className="text-xs text-neutral-500 mt-1">
+                                    Required if the MCP server needs authentication. Will be sent as Authorization Bearer header.
+                                </p>
+                            </div>
+
                             {error && (
                                 <div className="text-red-400 text-sm bg-red-950 p-3 rounded-lg border border-red-900">
                                     {error}
@@ -157,6 +183,12 @@ export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServe
                                             <div className="text-sm text-neutral-500 break-all mt-1 font-mono">
                                                 {server.url}
                                             </div>
+                                            {server.has_api_key && (
+                                                <div className="text-xs text-neutral-600 mt-1 flex items-center gap-1">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    API Key configured
+                                                </div>
+                                            )}
                                         </div>
                                         <button
                                             onClick={() => handleDeleteServer(server.name)}

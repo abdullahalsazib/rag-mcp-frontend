@@ -4,6 +4,7 @@ import { LLMManager } from './components/LLMManager';
 import { MCPManager } from './components/MCPManager';
 import { Conversation, ConversationContent, ConversationScrollButton } from './components/ui/conversation';
 import { Loader } from './components/ui/loader';
+import { Markdown } from './components/ui/markdown';
 import { Message, MessageAvatar, MessageContent } from './components/ui/message';
 import { PromptInput, PromptInputSubmit, PromptInputTextarea, PromptInputToolbar } from './components/ui/prompt-input';
 import { ToolBadge } from './components/ui/tool-badge';
@@ -287,7 +288,11 @@ function App() {
                   </div>
                 )}
                 <div className="whitespace-pre-wrap break-words">
-                  {message.content}
+                  {message.role === 'assistant' ? (
+                    <Markdown content={message.content} />
+                  ) : (
+                    message.content
+                  )}
                 </div>
               </MessageContent>
             </Message>
