@@ -29,7 +29,6 @@ function App() {
   const [sessionId] = useState(() => `session-${Date.now()}`);
   const [mode, setMode] = useState<'agent' | 'rag'>('agent');
   const [isTyping, setIsTyping] = useState(false);
-  const [isConnected, setIsConnected] = useState(true);
   const [isMCPOpen, setIsMCPOpen] = useState(false);
   const [isLLMOpen, setIsLLMOpen] = useState(false);
   const [mcpCount, setMCPCount] = useState(0);
@@ -47,11 +46,6 @@ function App() {
   useEffect(() => {
     loadMCPCount();
     loadLLMConfig();
-    checkConnection();
-
-    // Set up periodic connection check
-    const connectionInterval = setInterval(checkConnection, 5000);
-    return () => clearInterval(connectionInterval);
   }, []);
 
   const loadMCPCount = async () => {
@@ -69,15 +63,6 @@ function App() {
       setLlmConfig(response.config);
     } catch (error) {
       console.error('Failed to load LLM config:', error);
-    }
-  };
-
-  const checkConnection = async () => {
-    try {
-      await apiClient.checkHealth();
-      setIsConnected(true);
-    } catch (error) {
-      setIsConnected(false);
     }
   };
 
@@ -329,12 +314,6 @@ function App() {
             <PromptInputToolbar>
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs text-neutral-500">
                 <span>Mode: <span className="text-neutral-300 font-medium">{mode === 'agent' ? 'AGENT' : 'RAG'}</span></span>
-                <span className="flex items-center gap-1.5">
-                  <span className={`w-1.5 h-1.5 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                  <span className={isConnected ? 'text-green-400' : 'text-red-400 font-medium'}>
-                    {isConnected ? 'ONLINE' : 'DISCONNECTED'}
-                  </span>
-                </span>
               </div>
               <PromptInputSubmit disabled={!input.trim() || isTyping} />
             </PromptInputToolbar>

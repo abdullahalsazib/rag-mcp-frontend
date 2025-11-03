@@ -41,13 +41,6 @@ export interface SessionInfo {
   messages: ChatMessage[];
 }
 
-export interface HealthResponse {
-  status: string;
-  version: string;
-  rag_available: boolean;
-  mcp_servers: number;
-}
-
 export interface LLMConfig {
   type: 'openai' | 'groq' | 'ollama' | 'gemini';
   model: string;
@@ -80,14 +73,6 @@ export class APIClient {
 
   constructor(baseURL: string = API_BASE_URL) {
     this.baseURL = baseURL;
-  }
-
-  /**
-   * Health check
-   */
-  async checkHealth(): Promise<HealthResponse> {
-    const response = await fetch(`${this.baseURL}/health`);
-    return response.json();
   }
 
   /**

@@ -122,11 +122,14 @@ export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServe
                                     placeholder="https://your-server.com/mcp"
                                     className="w-full px-4 py-2.5 border border-neutral-700 rounded-lg focus:outline-none focus:border-neutral-600 focus:ring-2 focus:ring-neutral-600 bg-neutral-800 text-neutral-200 placeholder-neutral-500"
                                 />
+                                <p className="text-xs text-neutral-500 mt-1">
+                                    URL will be normalized to end with /mcp (e.g., /sse will be converted to /mcp)
+                                </p>
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-neutral-400 mb-2">
-                                    API Key / Auth Key <span className="text-neutral-500 text-xs">(Optional)</span>
+                                    X-API-Key <span className="text-neutral-500 text-xs">(Optional)</span>
                                 </label>
                                 <input
                                     type="password"
@@ -136,7 +139,7 @@ export const MCPManager: React.FC<MCPManagerProps> = ({ isOpen, onClose, onServe
                                     className="w-full px-4 py-2.5 border border-neutral-700 rounded-lg focus:outline-none focus:border-neutral-600 focus:ring-2 focus:ring-neutral-600 bg-neutral-800 text-neutral-200 placeholder-neutral-500"
                                 />
                                 <p className="text-xs text-neutral-500 mt-1">
-                                    Required if the MCP server needs authentication. Will be sent as Authorization Bearer header.
+                                    Optional API key that will be sent as X-API-Key header if provided.
                                 </p>
                             </div>
 
