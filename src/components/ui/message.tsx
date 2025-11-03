@@ -48,7 +48,7 @@ const MessageContent = React.forwardRef<
     <div
         ref={ref}
         className={cn(
-            "flex flex-col gap-2 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-sm max-w-[90%] sm:max-w-[85%]",
+            "flex flex-col gap-2 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 text-base sm:text-base max-w-[90%] sm:max-w-[85%]",
             role === "user"
                 ? "bg-neutral-800 text-neutral-200 border border-neutral-700"
                 : "bg-neutral-900 text-neutral-300 border border-neutral-800",

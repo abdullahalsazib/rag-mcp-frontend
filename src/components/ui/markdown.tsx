@@ -9,29 +9,29 @@ interface MarkdownProps {
 
 export const Markdown: React.FC<MarkdownProps> = ({ content, className = '' }) => {
     return (
-        <div className={`markdown-content ${className}`} style={{ lineHeight: '1.4' }}>
+        <div className={`markdown-content ${className}`} style={{ lineHeight: '1.6', fontSize: '1rem' }}>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
                     // Custom styling for markdown elements
-                    p: ({ children }) => <p className="mb-0 last:mb-0 text-neutral-300 leading-none">{children}</p>,
+                    p: ({ children }) => <p className="mb-2 last:mb-0 text-neutral-300" style={{ lineHeight: '1.6' }}>{children}</p>,
                     h1: ({ children }) => <h1 className="text-xl font-bold mb-2 mt-3 text-neutral-200 first:mt-0">{children}</h1>,
                     h2: ({ children }) => <h2 className="text-lg font-bold mb-1.5 mt-2 text-neutral-200 first:mt-0">{children}</h2>,
                     h3: ({ children }) => <h3 className="text-base font-bold mb-1 mt-2 text-neutral-200 first:mt-0">{children}</h3>,
                     strong: ({ children }) => <strong className="font-semibold text-neutral-200">{children}</strong>,
                     em: ({ children }) => <em className="italic text-neutral-300">{children}</em>,
                     ul: ({ children }) => (
-                        <ul className="list-disc list-outside mb-0 ml-4 text-neutral-300 space-y-0" style={{ lineHeight: '1.3' }}>
+                        <ul className="list-disc list-outside mb-2 ml-6 text-neutral-300" style={{ lineHeight: '1.6' }}>
                             {children}
                         </ul>
                     ),
                     ol: ({ children }) => (
-                        <ol className="list-decimal list-outside mb-0 ml-4 text-neutral-300 space-y-0" style={{ lineHeight: '1.3' }}>
+                        <ol className="list-decimal list-outside mb-2 ml-6 text-neutral-300" style={{ lineHeight: '1.6' }}>
                             {children}
                         </ol>
                     ),
                     li: ({ children }) => (
-                        <li className="pl-1 text-neutral-300 leading-none mb-0 [&:last-child]:mb-0 [&>p]:mb-0 [&>p]:leading-none [&>p]:m-0 [&>ul]:mt-0 [&>ol]:mt-0" style={{ lineHeight: '1.3' }}>
+                        <li className="pl-2 text-neutral-300 mb-1.5 [&:last-child]:mb-0" style={{ lineHeight: '1.6' }}>
                             {children}
                         </li>
                     ),
