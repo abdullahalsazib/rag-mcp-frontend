@@ -21,7 +21,7 @@ const ConversationContent = React.forwardRef<
     <div
         ref={ref}
         className={cn(
-            "flex-1 overflow-y-auto scroll-smooth py-4 sm:py-6",
+            "flex-1 overflow-y-auto scroll-smooth",
             className
         )}
         {...props}
@@ -61,7 +61,7 @@ const ConversationScrollButton = React.forwardRef<
             ref={ref}
             onClick={scrollToBottom}
             className={cn(
-                "fixed bottom-24 sm:bottom-20 right-4 sm:right-6 z-10 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-300 shadow-lg transition-all hover:bg-neutral-700 border border-neutral-700",
+                "fixed bottom-24 right-6 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg transition-all hover:bg-gray-800 border border-gray-800",
                 show ? "opacity-100" : "opacity-0 pointer-events-none",
                 className
             )}

@@ -9,7 +9,7 @@ const ToolBadge = React.forwardRef<
     <div
         ref={ref}
         className={cn(
-            "inline-flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium bg-neutral-800 text-neutral-400 border border-neutral-700",
+            "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium bg-gray-900 text-gray-300 border border-gray-800",
             className
         )}
         {...props}

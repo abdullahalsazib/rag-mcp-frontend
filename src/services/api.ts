@@ -104,6 +104,7 @@ export class APIClient {
     done: boolean;
     tool?: string;
     tools_used?: string[];
+    error?: string;
   }> {
     const response = await fetch(`${this.baseURL}/api/chat/stream`, {
       method: 'POST',
