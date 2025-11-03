@@ -2,22 +2,9 @@
  * API Service for AI MCP Agent Backend
  */
 
-// Runtime API URL configuration
-// Priority: window.API_BASE_URL > VITE_API_BASE_URL (build-time) > default localhost
-function getApiBaseUrl(): string {
-  // Check window global (set at runtime via index.html script or external config)
-  if (typeof window !== 'undefined' && (window as any).API_BASE_URL) {
-    return (window as any).API_BASE_URL;
-  }
-  // Check Vite env var (set at build time)
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-  // Default for local development
-  return 'http://localhost:8000';
-}
-
-const API_BASE_URL = getApiBaseUrl();
+// API URL from environment variable (set via .env file)
+// Default to localhost for local development
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 export interface ChatMessage {
   role: 'user' | 'assistant';
